@@ -4,13 +4,16 @@
 #
 Name     : gevent
 Version  : 1.1.1
-Release  : 6
+Release  : 7
 URL      : https://pypi.python.org/packages/source/g/gevent/gevent-1.1.1.tar.gz
 Source0  : https://pypi.python.org/packages/source/g/gevent/gevent-1.1.1.tar.gz
 Summary  : Coroutine-based network library
 Group    : Development/Tools
 License  : BSD-2-Clause MIT
 Requires: gevent-python
+Requires: greenlet
+BuildRequires : Cython
+BuildRequires : greenlet
 BuildRequires : pbr
 BuildRequires : pip
 BuildRequires : python-dev
@@ -30,17 +33,19 @@ python components for the gevent package.
 
 
 %prep
-cd ..
 %setup -q -n gevent-1.1.1
 
 %build
+export LANG=C
+export SOURCE_DATE_EPOCH=1487955872
 python2 setup.py build -b py2
 python3 setup.py build -b py3
 
 %install
+export SOURCE_DATE_EPOCH=1487955872
 rm -rf %{buildroot}
-python2 -tt setup.py build -b py2 install --root=%{buildroot}
-python3 -tt setup.py build -b py3 install --root=%{buildroot}
+python2 -tt setup.py build -b py2 install --root=%{buildroot} --force
+python3 -tt setup.py build -b py3 install --root=%{buildroot} --force
 
 %files
 %defattr(-,root,root,-)
