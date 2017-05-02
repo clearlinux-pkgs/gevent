@@ -4,7 +4,7 @@
 #
 Name     : gevent
 Version  : 1.1.1
-Release  : 7
+Release  : 8
 URL      : https://pypi.python.org/packages/source/g/gevent/gevent-1.1.1.tar.gz
 Source0  : https://pypi.python.org/packages/source/g/gevent/gevent-1.1.1.tar.gz
 Summary  : Coroutine-based network library
