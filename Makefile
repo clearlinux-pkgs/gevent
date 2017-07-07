@@ -1,5 +1,5 @@
 PKG_NAME := gevent
-URL := https://pypi.python.org/packages/source/g/gevent/gevent-1.1.1.tar.gz
+URL := https://pypi.debian.net/gevent/gevent-1.2.2.tar.gz
 
 
 include ../common/Makefile.common
