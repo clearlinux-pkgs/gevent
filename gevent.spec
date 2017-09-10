@@ -4,12 +4,13 @@
 #
 Name     : gevent
 Version  : 1.2.2
-Release  : 9
+Release  : 10
 URL      : https://pypi.debian.net/gevent/gevent-1.2.2.tar.gz
 Source0  : https://pypi.debian.net/gevent/gevent-1.2.2.tar.gz
 Summary  : Coroutine-based network library
 Group    : Development/Tools
 License  : BSD-2-Clause MIT Python-2.0
+Requires: gevent-legacypython
 Requires: gevent-python
 Requires: greenlet
 BuildRequires : Cython
@@ -21,11 +22,23 @@ BuildRequires : python3-dev
 BuildRequires : setuptools
 
 %description
-An example of AJAX chat taken from Tornado demos and converted to use django and gevent.
+gevent
+        ========
+        
+        gevent_ is a coroutine-based Python networking library.
+
+%package legacypython
+Summary: legacypython components for the gevent package.
+Group: Default
+
+%description legacypython
+legacypython components for the gevent package.
+
 
 %package python
 Summary: python components for the gevent package.
 Group: Default
+Requires: gevent-legacypython
 
 %description python
 python components for the gevent package.
@@ -39,12 +52,12 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1499440975
+export SOURCE_DATE_EPOCH=1505003007
 python2 setup.py build -b py2
 python3 setup.py build -b py3
 
 %install
-export SOURCE_DATE_EPOCH=1499440975
+export SOURCE_DATE_EPOCH=1505003007
 rm -rf %{buildroot}
 python2 -tt setup.py build -b py2 install --root=%{buildroot} --force
 python3 -tt setup.py build -b py3 install --root=%{buildroot} --force
@@ -55,7 +68,10 @@ echo ----[ mark ]----
 %files
 %defattr(-,root,root,-)
 
-%files python
+%files legacypython
 %defattr(-,root,root,-)
 /usr/lib/python2*/*
+
+%files python
+%defattr(-,root,root,-)
 /usr/lib/python3*/*
