@@ -4,7 +4,7 @@
 #
 Name     : gevent
 Version  : 1.4.0
-Release  : 34
+Release  : 35
 URL      : https://files.pythonhosted.org/packages/ed/27/6c49b70808f569b66ec7fac2e78f076e9b204db9cf5768740cff3d5a07ae/gevent-1.4.0.tar.gz
 Source0  : https://files.pythonhosted.org/packages/ed/27/6c49b70808f569b66ec7fac2e78f076e9b204db9cf5768740cff3d5a07ae/gevent-1.4.0.tar.gz
 Summary  : Coroutine-based network library
@@ -19,6 +19,11 @@ Requires: greenlet
 Requires: idna
 BuildRequires : Cython
 BuildRequires : buildreq-distutils3
+BuildRequires : cffi
+BuildRequires : dnspython
+BuildRequires : greenlet
+BuildRequires : idna
+BuildRequires : python3-dev
 
 %description
 ## Overview
@@ -48,6 +53,7 @@ python components for the gevent package.
 Summary: python3 components for the gevent package.
 Group: Default
 Requires: python3-core
+Provides: pypi(gevent)
 
 %description python3
 python3 components for the gevent package.
@@ -55,25 +61,33 @@ python3 components for the gevent package.
 
 %prep
 %setup -q -n gevent-1.4.0
+cd %{_builddir}/gevent-1.4.0
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-export LANG=C
-export SOURCE_DATE_EPOCH=1546658193
+export LANG=C.UTF-8
+export SOURCE_DATE_EPOCH=1582929857
+# -Werror is for werrorists
+export GCC_IGNORE_WERROR=1
+export CFLAGS="$CFLAGS -fno-lto "
+export FCFLAGS="$CFLAGS -fno-lto "
+export FFLAGS="$CFLAGS -fno-lto "
+export CXXFLAGS="$CXXFLAGS -fno-lto "
 export MAKEFLAGS=%{?_smp_mflags}
 python3 setup.py build
 
 %install
+export MAKEFLAGS=%{?_smp_mflags}
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/gevent
-cp LICENSE %{buildroot}/usr/share/package-licenses/gevent/LICENSE
-cp NOTICE %{buildroot}/usr/share/package-licenses/gevent/NOTICE
-cp deps/c-ares/LICENSE.md %{buildroot}/usr/share/package-licenses/gevent/deps_c-ares_LICENSE.md
-cp deps/libev/LICENSE %{buildroot}/usr/share/package-licenses/gevent/deps_libev_LICENSE
-cp deps/libuv/LICENSE %{buildroot}/usr/share/package-licenses/gevent/deps_libuv_LICENSE
-cp deps/libuv/LICENSE-docs %{buildroot}/usr/share/package-licenses/gevent/deps_libuv_LICENSE-docs
+cp %{_builddir}/gevent-1.4.0/LICENSE %{buildroot}/usr/share/package-licenses/gevent/e390b2ea7c66d8859ed575dcad84522b804123ae
+cp %{_builddir}/gevent-1.4.0/NOTICE %{buildroot}/usr/share/package-licenses/gevent/c3c1f290cd381675b69efce2eee3c2ce03d398d8
+cp %{_builddir}/gevent-1.4.0/deps/c-ares/LICENSE.md %{buildroot}/usr/share/package-licenses/gevent/e9c597f9b6cf935773ee731d4170b0c2ba142dbb
+cp %{_builddir}/gevent-1.4.0/deps/libev/LICENSE %{buildroot}/usr/share/package-licenses/gevent/10e633ee2e9f8a961554d0d579f03a1d0755ff3b
+cp %{_builddir}/gevent-1.4.0/deps/libuv/LICENSE %{buildroot}/usr/share/package-licenses/gevent/848f7398f89046426a7ba23cb56cd3c93c030c64
+cp %{_builddir}/gevent-1.4.0/deps/libuv/LICENSE-docs %{buildroot}/usr/share/package-licenses/gevent/1167f0e28fe2db01e38e883aaf1e749fb09f9ceb
 python3 -tt setup.py build  install --root=%{buildroot}
 echo ----[ mark ]----
 cat %{buildroot}/usr/lib/python3*/site-packages/*/requires.txt || :
@@ -84,12 +98,12 @@ echo ----[ mark ]----
 
 %files license
 %defattr(0644,root,root,0755)
-/usr/share/package-licenses/gevent/LICENSE
-/usr/share/package-licenses/gevent/NOTICE
-/usr/share/package-licenses/gevent/deps_c-ares_LICENSE.md
-/usr/share/package-licenses/gevent/deps_libev_LICENSE
-/usr/share/package-licenses/gevent/deps_libuv_LICENSE
-/usr/share/package-licenses/gevent/deps_libuv_LICENSE-docs
+/usr/share/package-licenses/gevent/10e633ee2e9f8a961554d0d579f03a1d0755ff3b
+/usr/share/package-licenses/gevent/1167f0e28fe2db01e38e883aaf1e749fb09f9ceb
+/usr/share/package-licenses/gevent/848f7398f89046426a7ba23cb56cd3c93c030c64
+/usr/share/package-licenses/gevent/c3c1f290cd381675b69efce2eee3c2ce03d398d8
+/usr/share/package-licenses/gevent/e390b2ea7c66d8859ed575dcad84522b804123ae
+/usr/share/package-licenses/gevent/e9c597f9b6cf935773ee731d4170b0c2ba142dbb
 
 %files python
 %defattr(-,root,root,-)
