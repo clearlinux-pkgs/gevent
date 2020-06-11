@@ -1,5 +1,5 @@
 PKG_NAME := gevent
-URL = https://files.pythonhosted.org/packages/7a/e3/2aeb06b0fad51fd99a4ae401b704e7976b20d9b477d5ef88c53a00f24114/gevent-20.6.0.tar.gz
+URL = https://files.pythonhosted.org/packages/9d/a0/42c50f1a021d2404fcad9ac0724fc72de5d084c23fa5447a62f898440802/gevent-20.6.1.tar.gz
 ARCHIVES = 
 
 include ../common/Makefile.common
