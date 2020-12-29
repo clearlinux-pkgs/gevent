@@ -1,7 +1,2 @@
 # This file contains recursive sources that require this package
-dulwich
-geventhttpclient-wheels
-kazoo
-locustio
 ouimeaux
-tinyrpc
