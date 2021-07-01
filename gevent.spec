@@ -4,7 +4,7 @@
 #
 Name     : gevent
 Version  : 21.1.2
-Release  : 55
+Release  : 56
 URL      : https://files.pythonhosted.org/packages/0b/50/1b1175ea3a269b5fa3f0f7fed11149888180695bef5fbf568adbb196efaf/gevent-21.1.2.tar.gz
 Source0  : https://files.pythonhosted.org/packages/0b/50/1b1175ea3a269b5fa3f0f7fed11149888180695bef5fbf568adbb196efaf/gevent-21.1.2.tar.gz
 Summary  : Coroutine-based network library
